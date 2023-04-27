@@ -103,3 +103,64 @@ i_understand_annotations is a <class 'bool'> with a value of True
 school is a <class 'str'> with a value of Holberton
 ```
 
+### [5. Complex types - list of floats](./5-sum_list.py)
+
+Write a type-annotated function `sum_list` which takes a list `input_list` of floats as argument and returns their sum as a float.
+```
+bob@dylan:~$ cat 5-main.py
+#!/usr/bin/env python3
+
+sum_list = __import__('5-sum_list').sum_list
+
+floats = [3.14, 1.11, 2.22]
+floats_sum = sum_list(floats)
+print(floats_sum == sum(floats))
+print(sum_list.__annotations__)
+print("sum_list(floats) returns {} which is a {}".format(floats_sum, type(floats_sum)))
+
+bob@dylan:~$ ./5-main.py
+True
+{'input_list': typing.List[float], 'return': <class 'float'>}
+sum_list(floats) returns 6.470000000000001 which is a <class 'float'>
+```
+
+### [6. Complex types - mixed list](./6-sum_mixed_list.py)
+
+Write a type-annotated function `sum_mixed_list` which takes a list `mxd_lst` of integers and floats and returns their sum as a float.
+```
+bob@dylan:~$ cat 6-main.py
+#!/usr/bin/env python3
+
+sum_mixed_list = __import__('6-sum_mixed_list').sum_mixed_list
+
+print(sum_mixed_list.__annotations__)
+mixed = [5, 4, 3.14, 666, 0.99]
+ans = sum_mixed_list(mixed)
+print(ans == sum(mixed))
+print("sum_mixed_list(mixed) returns {} which is a {}".format(ans, type(ans)))
+
+bob@dylan:~$ ./6-main.py
+{'mxd_lst': typing.List[typing.Union[int, float]], 'return': <class 'float'>}
+True
+sum_mixed_list(mixed) returns 679.13 which is a <class 'float'>
+```
+
+### [7. Complex types - string and int/float to tuple](./7-to_kv.py)
+
+Write a type-annotated function `to_kv` that takes a string `k` and an int OR float `v` as arguments and returns a tuple. The first element of the tuple is the string `k`. The second element is the square of the int/float `v` and should be annotated as a float.
+```
+bob@dylan:~$ cat 7-main.py
+#!/usr/bin/env python3
+
+to_kv = __import__('7-to_kv').to_kv
+
+print(to_kv.__annotations__)
+print(to_kv("eggs", 3))
+print(to_kv("school", 0.02))
+
+bob@dylan:~$ ./7-main.py
+{'k': <class 'str'>, 'v': typing.Union[int, float], 'return': typing.Tuple[str, float]}
+('eggs', 9)
+('school', 0.0004)
+```
+

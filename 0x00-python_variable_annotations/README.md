@@ -56,3 +56,50 @@ True
 floor(3.14) returns 3, which is a <class 'int'>
 ```
 
+### [3. Basic annotations - to string](./3-to_str.py)
+
+Write a type-annotated function `to_str` that takes a `float` `n` as argument and returns the string representation of the float.
+```
+bob@dylan:~$ cat 3-main.py
+#!/usr/bin/env python3
+to_str = __import__('3-to_str').to_str
+
+pi_str = to_str(3.14)
+print(pi_str == str(3.14))
+print(to_str.__annotations__)
+print("to_str(3.14) returns {} which is a {}".format(pi_str, type(pi_str)))
+
+bob@dylan:~$ ./3-main.py
+True
+{'n': <class 'float'>, 'return': <class 'str'>}
+to_str(3.14) returns 3.14, which is a <class 'str'>
+```
+
+### [4. Define variables](./4-define_variables.py)
+
+Define and annotate the following variables with the specified values:
+- `a`, an integer with a value of `1`
+- `pi`, a float with a value of `3.14`
+- `i_understand_annotations`, a boolean with a value of `True`
+- `school`, a string with a value of `Holberton`
+```
+bob@dylan:~$ cat 4-main.py
+#!/usr/bin/env python3
+
+a = __import__('4-define_variables').a
+pi = __import__('4-define_variables').pi
+i_understand_annotations = __import__('4-define_variables').i_understand_annotations
+school = __import__('4-define_variables').school
+
+print("a is a {} with a value of {}".format(type(a), a))
+print("pi is a {} with a value of {}".format(type(pi), pi))
+print("i_understand_annotations is a {} with a value of {}".format(type(i_understand_annotations), i_understand_annotations))
+print("school is a {} with a value of {}".format(type(school), school))
+
+bob@dylan:~$ ./4-main.py
+a is a <class 'int'> with a value of 1
+pi is a <class 'float'> with a value of 3.14
+i_understand_annotations is a <class 'bool'> with a value of True
+school is a <class 'str'> with a value of Holberton
+```
+

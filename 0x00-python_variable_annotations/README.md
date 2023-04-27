@@ -164,3 +164,40 @@ bob@dylan:~$ ./7-main.py
 ('school', 0.0004)
 ```
 
+### [8. Complex types - functions](./8-make_multiplier.py)
+
+Write a type-annotated function `make_multiplier` that takes a float `multiplier` as argument and returns a function that multiplies a float by `multiplier`.
+```
+bob@dylan:~$ cat 8-main.py
+#!/usr/bin/env python3
+
+make_multiplier = __import__('8-make_multiplier').make_multiplier
+print(make_multiplier.__annotations__)
+fun = make_multiplier(2.22)
+print("{}".format(fun(2.22)))
+
+bob@dylan:~$ ./8-main.py
+{'multiplier': <class 'float'>, 'return': typing.Callable[[float], float]}
+4.928400000000001
+```
+
+### [9. Let's duck type an iterable object](./9-element_length.py)
+
+Annotate the below function’s parameters and return values with the appropriate types
+```
+def element_length(lst):
+    return [(i, len(i)) for i in lst]
+```
+
+```
+bob@dylan:~$ cat 9-main.py 
+#!/usr/bin/env python3
+
+element_length =  __import__('9-element_length').element_length
+
+print(element_length.__annotations__)
+
+bob@dylan:~$ ./9-main.py 
+{'lst': typing.Iterable[typing.Sequence], 'return': typing.List[typing.Tuple[typing.Sequence, int]]}
+```
+

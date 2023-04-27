@@ -7,6 +7,9 @@ from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
+    """
+    return the sum of float items in a list
+    """
     sum_fl: float = 0
     for fl_item in input_list:
         sum_fl += fl_item

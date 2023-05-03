@@ -3,6 +3,10 @@
 
 The coroutine will loop 10 times, each time asynchronously wait 1
 second, then yield a random number between 0 and 10. Use the random module.
+
+The return type of generator functions can be annotated by the
+generic type Generator[yield_type, send_type, return_type] provided
+by typing.py module
 """
 
 import asyncio

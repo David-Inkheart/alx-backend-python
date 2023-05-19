@@ -22,7 +22,14 @@ This repository contains code examples and exercises for understanding and imple
 ### [0. Parameterize a unit test](./test_utils.py)
 Familiarize yourself with the `utils.access_nested_map` function and understand its purpose. In this task, you will write the first unit test for `utils.access_nested_map`.
 
-Create a `TestAccessNestedMap` class that inherits from `unittest.TestCase`. Implement the `TestAccessNestedMap.test_access_nested_map` method to test that the method returns the expected result for different inputs. Decorate the method with `@parameterized.expand` to test the function for specific inputs.
+Create a `TestAccessNestedMap` class that inherits from `unittest.TestCase`. 
+Implement the `TestAccessNestedMap.test_access_nested_map` method to test that the method returns the expected result for different inputs.
+Decorate the method with `@parameterized.expand` to test the function for specific inputs.
+```
+nested_map={"a": 1}, path=("a",)
+nested_map={"a": {"b": 2}}, path=("a",)
+nested_map={"a": {"b": 2}}, path=("a", "b")
+```
 
 ### [1. Parameterize a unit test exception](./test_utils.py)
 Implement the `TestAccessNestedMap.test_access_nested_map_exception` method to test that a `KeyError` exception is raised for certain inputs. Use the `assertRaises` context manager to check for the exception and verify the exception message.

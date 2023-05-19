@@ -21,6 +21,9 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(self, nested_map, path, result):
+        '''
+        test method for access_nested_map
+        '''
         self.assertEqual(aNm(nested_map, path), result)
 
     @parameterized.expand([
@@ -28,6 +31,9 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), "'b'"),
     ])
     def test_access_nested_map_exception(self, nested_map, path, err_message):
+        '''
+        test method for access_nested_map KeyError
+        '''
         with self.assertRaises(KeyError) as e:
             aNm(nested_map, path)
         self.assertEqual(str(e.exception), err_message)
@@ -52,13 +58,30 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
+    '''
+    test class that inherits from unittest
+    '''
+
     def test_memoize(self):
+        '''
+        test that when calling a_property twice, the correct result is returned but a_method is only called once using assert_called_once
+        '''
         class TestClass:
+            '''
+            test class that inherits from unittest
+            '''
+
             def a_method(self):
+                '''
+                test method for a_method
+                '''
                 return 42
 
             @memoize
             def a_property(self):
+                '''
+                test method for a_property
+                '''
                 return self.a_method()
 
         test = TestClass()

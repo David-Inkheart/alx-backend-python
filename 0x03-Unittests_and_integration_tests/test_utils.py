@@ -8,7 +8,7 @@ from unittest.mock import patch, Mock
 from parameterized import parameterized, param
 from utils import access_nested_map as aNm
 from utils import get_json as gj
-from utils import memoize as memo
+from utils import memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -71,7 +71,7 @@ class TestMemoize(unittest.TestCase):
                 '''
                 return 42
 
-            @memo
+            @memoize
             def a_property(self):
                 '''
                 test method for memoize

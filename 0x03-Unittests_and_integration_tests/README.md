@@ -32,10 +32,25 @@ nested_map={"a": {"b": 2}}, path=("a", "b")
 ```
 
 ### [1. Parameterize a unit test exception](./test_utils.py)
-Implement the `TestAccessNestedMap.test_access_nested_map_exception` method to test that a `KeyError` exception is raised for certain inputs. Use the `assertRaises` context manager to check for the exception and verify the exception message.
+Implement the `TestAccessNestedMap.test_access_nested_map_exception` method to test that a `KeyError` exception is raised for certain inputs. Use the `assertRaises` context manager to test that a `KeyError` is raised for the following inputs(use @parameterized.expand)
+```
+nested_map={}, path=("a",)
+nested_map={"a": 1}, path=("a", "b")
+```
+Also make sure that the exception message is as expected
 
 ### [2. Mock HTTP calls](./test_utils.py)
-Familiarize yourself with the `utils.get_json` function. Define the `TestGetJson` class and implement the `TestGetJson.test_get_json` method to test that `utils.get_json` returns the expected result. Use `unittest.mock.patch` to mock the `requests.get` function and ensure it returns the desired payload.
+Familiarize yourself with the `utils.get_json` function.
+Define the `TestGetJson` class and implement the `TestGetJson.test_get_json` method to test that `utils.get_json` returns the expected result.
+We don’t want to make actual HTTP calls. Use `unittest.mock.patch`  to patch `requests.get`.
+Make sure it returns a `Mock` object with a `json` method that returns `test_payload` which you parameterize alomngside the `test_url` that you will pass to `get_json` with the following inputs:
+```
+test_url="http://example.com", test_payload={"payload": True}
+test_url="http://holberton.io", test_payload={"payload": False}
+```
+Test that the mocked `get` method was called exactly once(per input) with `test_url` as argument.
+Test that the output of `get_json` is equal to `test_payload`.
+
 
 ### [3. Parameterize and patch](./test_utils.py)
 Implement the `TestMemoize` class with a `test_memoize` method. Inside the `test_memoize` method, define a class and use `unittest.mock.patch` to mock a method. Test that the method is only called once when calling a decorated property multiple times.

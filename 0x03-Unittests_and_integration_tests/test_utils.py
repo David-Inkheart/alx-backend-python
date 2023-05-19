@@ -52,37 +52,21 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    '''
-    test class that inherits from unittest
-    '''
-
     def test_memoize(self):
-        '''
-        test method for memoize
-        '''
         class TestClass:
-            '''
-            test class for memoize
-            '''
-
             def a_method(self):
-                '''
-                test method for memoize
-                '''
                 return 42
 
             @memoize
             def a_property(self):
-                '''
-                test method for memoize
-                '''
                 return self.a_method()
 
-        with patch.object(TestClass, 'a_method', return_value=42) as mock:
-            test = TestClass()
-            test.a_property
-            test.a_property
-            mock.assert_called_once()
+        test = TestClass()
+        with patch.object(test, 'a_method') as mock_a_method:
+            test.a_property()
+            test.a_property()
+
+            mock_a_method.assert_called_once()
 
 
 if __name__ == '__main__':

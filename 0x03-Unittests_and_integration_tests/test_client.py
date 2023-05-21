@@ -53,3 +53,17 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(goc.public_repos(), ['google', 'abc'])
             mock_url.assert_called_once_with()
             get_mock.assert_called_once_with('http://some_url')
+
+    @parameterized.expand([
+        param(input_payload={'license': {'key': 'my_license'}},
+              expected_license_key='my_license'),
+        param(input_payload={'license': {'key': 'other_license'}},
+              expected_license_key='other_license'),
+    ])
+    def test_has_license(self, input_payload: Mapping[str, Any], expected_license_key: str) -> None:
+        '''
+        unit test for GithubOrgClient.has_license
+        '''
+        goc = GOC('test')
+        self.assertEqual(goc.has_license(
+            input_payload, expected_license_key), True)

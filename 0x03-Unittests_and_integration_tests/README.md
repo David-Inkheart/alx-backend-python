@@ -56,7 +56,20 @@ Test that the output of `get_json` is equal to `test_payload`.
 Implement the `TestMemoize` class with a `test_memoize` method. Inside the `test_memoize` method, define a class and use `unittest.mock.patch` to mock a method. Test that the method is only called once when calling a decorated property multiple times.
 
 ### [4. Parameterize and patch as decorators](./test_client.py)
-Implement the `TestGithubOrgClient` class and the `test_org` method. Use `@patch` as a decorator to mock the `get_json` function and ensure it is called once with the expected argument. Use `@parameterized.expand` as a decorator to parametrize the test with different org examples.
+
+Familiarize yourself with the `client.GithubOrgClient` class.
+
+In a new `test_client.py` file, declare the `TestGithubOrgClient(unittest.TestCase)` class and implement the test_org method.
+
+This method should test that `GithubOrgClient.org` returns the correct value.
+
+Use `@patch` as a decorator to make sure get_json is called once with the expected argument but make sure it is not executed.
+
+Use `@parameterized.expand` as a decorator to parametrize the test with a couple of `org` examples to pass to `GithubOrgClient`, in this order:
+
+- google
+- abc
+Of course, no external HTTP calls should be made.
 
 ### [5. Mocking a property](./test_client.py)
 Implement the `test_public_repos_url` method to unit-test `GithubOrgClient._public_repos_url`. Use `patch` as a context manager to mock `GithubOrgClient.org` and test the result of `_public_repos_url` based on the mocked payload.

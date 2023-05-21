@@ -2,7 +2,6 @@
 """
 unit test for client.GithubOrgClient
 """
-
 import unittest
 from urllib.error import HTTPError
 from unittest.mock import patch, PropertyMock

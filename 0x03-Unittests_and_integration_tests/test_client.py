@@ -35,7 +35,8 @@ class TestGithubOrgClient(unittest.TestCase):
         test that the result of _public_repos_url is the expected
         one based on the mocked payload
         '''
-        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_url:
             mock_url.return_value = 'http://some_url'
             goc = GOC('test')
             self.assertEqual(goc._public_repos_url,
@@ -47,7 +48,8 @@ class TestGithubOrgClient(unittest.TestCase):
         '''
         unit test for GithubOrgClient.public_repos
         '''
-        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_url:
 
             mock_url.return_value = 'http://some_url'
             get_mock.return_value = [{'name': 'google'}, {'name': 'abc'}]
@@ -63,7 +65,8 @@ class TestGithubOrgClient(unittest.TestCase):
         param(input_payload={'license': {'key': 'other_license'}},
               expected_license_key='other_license'),
     ])
-    def test_has_license(self, input_payload: Mapping[str, Any], expected_license_key: str) -> None:
+    def test_has_license(self, input_payload: Mapping[str, Any],
+                         expected_license_key: str) -> None:
         '''
         unit test for GithubOrgClient.has_license
         '''
@@ -100,7 +103,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         '''
         cls.get_patcher.stop()
 
-    def test_public_repos(self):
+    def test_public_repos(self) -> None:
         '''
         test that GithubOrgClient.public_repos returns the correct
         list of repos
@@ -108,7 +111,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         goc = GOC('test')
         assert True
 
-    def test_public_repos_with_license(self):
+    def test_public_repos_with_license(self) -> None:
         '''
         test that GithubOrgClient.public_repos returns the correct
         list of repos that match the license

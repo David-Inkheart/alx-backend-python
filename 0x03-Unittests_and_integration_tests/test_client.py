@@ -1,31 +1,25 @@
 #!/usr/bin/env python3
 """
-unit test for utils.access_nested_map.
+Parameterize and patch as decorators,
+Mocking a property, More patching,
+Parameterize, Integration test: fixtures, Integration tests
 """
 
 import unittest
-from unittest.mock import patch, Mock, PropertyMock
+from unittest.mock import patch, PropertyMock
 from parameterized import parameterized, param
-from utils import access_nested_map as aNm
-from utils import get_json as gj
-from utils import memoize as memo
 from client import GithubOrgClient as GOC
-from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    '''
-    test class that inherits from unittest
-    '''
+    '''test class that inherits from unittest'''
     @parameterized.expand([
         param(org='google'),
         param(org='abc'),
     ])
     @patch('client.get_json')
     def test_org(self, get_mock, org):
-        '''
-        test method for org
-        '''
+        '''test that GithubOrgClient.org returns the correct value'''
         goc = GOC(org)
         goc.org()
         get_mock.assert_called_once_with('https://api.github.com/orgs/' + org)
@@ -42,9 +36,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, get_mock):
-        '''
-        test method for public_repos
-        '''
+        '''unit test for GithubOrgClient.public_repos'''
         with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
             mock_url.return_value = 'http://some_url'
             get_mock.return_value = [{'name': 'google'}, {'name': 'abc'}]

@@ -3,10 +3,9 @@
 unit test for client.GithubOrgClient
 """
 
-from typing import Mapping, Sequence, Any
-from urllib.error import HTTPError
 import unittest
-from unittest.mock import patch, PropertyMock, MagicMock
+from urllib.error import HTTPError
+from unittest.mock import patch, PropertyMock
 from parameterized import parameterized, param, parameterized_class
 from client import GithubOrgClient as GOC
 from fixtures import TEST_PAYLOAD
@@ -26,7 +25,9 @@ class TestGithubOrgClient(unittest.TestCase):
         '''
         goc = GOC(org)
         goc.org()
-        get_mock.assert_called_once_with('https://api.github.com/orgs/' + org)
+        get_mock.assert_called_once_with(
+            'https://api.github.com/orgs/' + org
+        )
 
     def test_public_repos_url(self):
         '''
@@ -50,7 +51,9 @@ class TestGithubOrgClient(unittest.TestCase):
                    new_callable=PropertyMock) as mock_url:
 
             mock_url.return_value = 'http://some_url'
-            get_mock.return_value = [{'name': 'google'}, {'name': 'abc'}]
+            get_mock.return_value = [
+                {'name': 'google'}, {'name': 'abc'}
+            ]
             goc = GOC('test')
 
             self.assertEqual(goc.public_repos(), ['google', 'abc'])

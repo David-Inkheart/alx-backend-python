@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Parameterize and patch as decorators
-Mocking a property, More patching
-Parameterize, Integration test: fixtures, Integration tests
+unit test for client.GithubOrgClient
 """
 
 from typing import Mapping, Sequence, Any

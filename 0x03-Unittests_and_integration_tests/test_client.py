@@ -6,7 +6,7 @@ Parameterize, Integration test: fixtures, Integration tests
 """
 
 import unittest
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock, MagicMock
 from parameterized import parameterized, param
 from client import GithubOrgClient as GOC
 
@@ -39,7 +39,7 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_url.assert_called_once_with()
 
     @patch('client.get_json')
-    def test_public_repos(self, get_mock):
+    def test_public_repos(self, get_mock: MagicMock) -> None:
         '''
         unit test for GithubOrgClient.public_repos
         '''

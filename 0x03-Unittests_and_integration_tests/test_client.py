@@ -27,15 +27,16 @@ class TestGithubOrgClient(unittest.TestCase):
         goc.org()
         get_mock.assert_called_once_with('https://api.github.com/orgs/' + org)
 
-    @patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock)
-    def test_public_repos_url(self, mock_url):
+    def test_public_repos_url(self):
         '''
-        test that the result of _public_repos_url is the expected one
+        test that the result of _public_repos_url is the expected one based on the mocked payload
         '''
-        expected = 'David'
-        mock_url.return_value = expected
-        goc = GOC('test')
-        self.assertEqual(goc._public_repos_url, expected)
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
+            mock_url.return_value = 'http://some_url'
+            goc = GOC('test')
+            self.assertEqual(goc._public_repos_url,
+                             'http://some_url')
+            mock_url.assert_called_once_with()
 
     @patch('client.get_json')
     def test_public_repos(self, get_mock):

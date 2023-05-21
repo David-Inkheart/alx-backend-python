@@ -22,7 +22,7 @@ class TestGithubOrgClient(unittest.TestCase):
         param(org='abc'),
     ])
     @patch('client.get_json')
-    def test_org(self, get_mock: MagicMock, org: str):
+    def test_org(self, get_mock, org):
         '''
         test that GithubOrgClient.org returns the correct value
         '''
@@ -44,7 +44,7 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_url.assert_called_once_with()
 
     @patch('client.get_json')
-    def test_public_repos(self, get_mock: MagicMock) -> None:
+    def test_public_repos(self, get_mock):
         '''
         unit test for GithubOrgClient.public_repos
         '''
@@ -65,8 +65,7 @@ class TestGithubOrgClient(unittest.TestCase):
         param(input_payload={'license': {'key': 'other_license'}},
               expected_license_key='other_license'),
     ])
-    def test_has_license(self, input_payload: Mapping[str, Any],
-                         expected_license_key: str) -> None:
+    def test_has_license(self, input_payload, expected_license_key):
         '''
         unit test for GithubOrgClient.has_license
         '''
@@ -81,7 +80,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     '''test class that inherits from unittest'''
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         '''
         class method called before tests in an individual class run
         '''
@@ -96,14 +95,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.mock_get = cls.get_patcher.start()
 
     @classmethod
-    def tearDownClass(cls) -> None:
+    def tearDownClass(cls):
         '''
         class method called after tests in an individual class have
         run
         '''
         cls.get_patcher.stop()
 
-    def test_public_repos(self) -> None:
+    def test_public_repos(self):
         '''
         test that GithubOrgClient.public_repos returns the correct
         list of repos
@@ -111,7 +110,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         goc = GOC('test')
         assert True
 
-    def test_public_repos_with_license(self) -> None:
+    def test_public_repos_with_license(self):
         '''
         test that GithubOrgClient.public_repos returns the correct
         list of repos that match the license

@@ -9,6 +9,7 @@ import unittest
 from unittest.mock import patch, PropertyMock, MagicMock
 from parameterized import parameterized, param
 from client import GithubOrgClient as GOC
+from typing import Mapping, Sequence, Any
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestGithubOrgClient(unittest.TestCase):
         param(org='abc'),
     ])
     @patch('client.get_json')
-    def test_org(self, get_mock, org):
+    def test_org(self, get_mock: MagicMock, org: str):
         '''
         test that GithubOrgClient.org returns the correct value
         '''

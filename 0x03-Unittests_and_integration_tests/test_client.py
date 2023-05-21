@@ -98,3 +98,21 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         class method called after tests in an individual class have run
         '''
         cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        '''
+        test that GithubOrgClient.public_repos returns the correct list of repos
+        '''
+        goc = GOC('test')
+        assert True
+
+    def test_public_repos_with_license(self):
+        '''
+        test that GithubOrgClient.public_repos returns the correct list of repos that match the license
+        '''
+        goc = GOC('test')
+        assert True
+
+
+if __name__ == '__main__':
+    unittest.main()

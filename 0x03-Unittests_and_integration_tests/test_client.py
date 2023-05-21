@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 """
-Parameterize and patch as decorators,
-Mocking a property, More patching,
+Parameterize and patch as decorators
+Mocking a property, More patching
 Parameterize, Integration test: fixtures, Integration tests
 """
 
 from typing import Mapping, Sequence, Any
 from urllib.error import HTTPError
-
 import unittest
 from unittest.mock import patch, PropertyMock, MagicMock
 from parameterized import parameterized, param, parameterized_class
-
 from client import GithubOrgClient as GOC
 from fixtures import TEST_PAYLOAD
 
@@ -34,7 +32,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
     def test_public_repos_url(self):
         '''
-        test that the result of _public_repos_url is the expected one based on the mocked payload
+        test that the result of _public_repos_url is the expected
+        one based on the mocked payload
         '''
         with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
             mock_url.return_value = 'http://some_url'
@@ -73,7 +72,8 @@ class TestGithubOrgClient(unittest.TestCase):
             input_payload, expected_license_key), True)
 
 
-@parameterized_class(['org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'], TEST_PAYLOAD)
+@parameterized_class(['org_payload', 'repos_payload',
+                      'expected_repos', 'apache2_repos'], TEST_PAYLOAD)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     '''test class that inherits from unittest'''
 
@@ -95,20 +95,23 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def tearDownClass(cls) -> None:
         '''
-        class method called after tests in an individual class have run
+        class method called after tests in an individual class have
+        run
         '''
         cls.get_patcher.stop()
 
     def test_public_repos(self):
         '''
-        test that GithubOrgClient.public_repos returns the correct list of repos
+        test that GithubOrgClient.public_repos returns the correct
+        list of repos
         '''
         goc = GOC('test')
         assert True
 
     def test_public_repos_with_license(self):
         '''
-        test that GithubOrgClient.public_repos returns the correct list of repos that match the license
+        test that GithubOrgClient.public_repos returns the correct
+        list of repos that match the license
         '''
         goc = GOC('test')
         assert True

@@ -5,11 +5,15 @@ Mocking a property, More patching,
 Parameterize, Integration test: fixtures, Integration tests
 """
 
+from typing import Mapping, Sequence, Any
+from urllib.error import HTTPError
+
 import unittest
 from unittest.mock import patch, PropertyMock, MagicMock
-from parameterized import parameterized, param
+from parameterized import parameterized, param, parameterized_class
+
 from client import GithubOrgClient as GOC
-from typing import Mapping, Sequence, Any
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -67,3 +71,53 @@ class TestGithubOrgClient(unittest.TestCase):
         goc = GOC('test')
         self.assertEqual(goc.has_license(
             input_payload, expected_license_key), True)
+
+
+@parameterized_class(['org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'], [
+    ({'license': {'key': 'my_license'}},
+        [{'name': 'google'}, {'name': 'abc'}],
+        ['google', 'abc'],
+        {'google': True, 'abc': True}),
+    ({'license': {'key': 'other_license'}},
+        [{'name': 'google'}, {'name': 'abc'}],
+        ['google', 'abc'],
+        {'google': False, 'abc': False}),
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    '''test class that inherits from unittest
+    and has a parameterized class
+    it tests the integration of GithubOrgClient
+    '''
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        '''
+        unit test for GithubOrgClient.public_repos
+        this mocks requests.get
+        '''
+        cls.get_patcher = patch('requests.get')
+        cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        '''
+        unit test for GithubOrgClient.public_repos
+        this stops mocking requests.get
+        '''
+        cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        '''
+        unit test for GithubOrgClient.public_repos
+        this tests the integration of GithubOrgClient
+        '''
+        self.get_patcher.stop()
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_url:
+            mock_url.return_value = 'http://some_url'
+            with patch('client.get_json') as mock_get_json:
+                mock_get_json.return_value = self.repos_payload
+                goc = GOC('test')
+                self.assertEqual(goc.public_repos(), self.expected_repos)
+                mock_url.assert_called_once_with()
+                mock_get_json.assert_called_once_with('http://some_url')
+                self.get_patcher.start()

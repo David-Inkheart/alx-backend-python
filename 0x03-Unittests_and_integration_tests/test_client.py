@@ -119,5 +119,24 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         assert True
 
 
+class HTTPError(Exception):
+    """Exception raised for HTTP errors.
+
+    Attributes:
+        status_code -- the HTTP status code
+        message -- the error message
+    """
+
+    def __init__(self):
+        """Initialize the HTTPError instance.
+
+        Args:
+            status_code (int): The HTTP status code.
+            message (str): The error message.
+        """
+        self.status_code = 404
+        self.message = 'Not Found'
+
+
 if __name__ == '__main__':
     unittest.main()
